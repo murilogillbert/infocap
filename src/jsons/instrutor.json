@@ -1,0 +1,19 @@
+{
+    "instrutor": [
+        {
+            "idUsuario":1,
+            "cursosGerenciados":[{"id":1,"status":"ativo"},{"id":2,"status":"em análise"},{"id":3,"status":"reprovado"}],
+            "licença":"ativa"
+        },
+        {
+            "idUsuario":2,
+            "cursosGerenciados":[{"id":4,"status":"ativo"},{"id":5,"status":"em análise"},{"id":6,"status":"reprovado"}],
+            "licença":"suspensa"
+        },
+        {
+            "idUsuario":3,
+            "cursosGerenciados":[{"id":7,"status":"ativo"},{"id":8,"status":"em análise"},{"id":9,"status":"reprovado"}],
+            "licença":"em análise"
+        }
+    ]
+}

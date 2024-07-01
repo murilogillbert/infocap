@@ -1,0 +1,121 @@
+#gerenciador-container {
+    background-color: #3c3658;
+    padding: 20px;
+    border-radius: 8px;
+    max-width: 600px;
+    margin: 0 auto;
+    color: #fff;
+  }
+  
+  #curso {
+    background-color: #4b415f;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    margin-bottom: 10px;
+    color: #fff;
+  }
+  
+  #curso img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-right: 10px;
+  }
+  
+  #middle {
+    flex: 1;
+  }
+  
+  #middle h1 {
+    font-size: 18px;
+    margin: 0;
+  }
+  
+  #middle span {
+    color: #84d07d;
+  }
+  
+  #buttons {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  #buttons button {
+    background-color: #6c63ff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 5px;
+    margin-top: 5px;
+    cursor: pointer;
+  }
+  
+  #buttons button:last-child {
+    background-color: #ff6b6b;
+  }
+  
+  #adicionar-curso-btn {
+    background-color: #6c63ff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+    margin-top: 10px;
+    cursor: pointer;
+    width: 100%;
+  }
+  
+  #add-curso {
+    background-color: #4b415f;
+    border-radius: 8px;
+    padding: 10px;
+    margin-top: 10px;
+    color: #fff;
+  }
+  
+  #add-curso label {
+    display: block;
+    margin-top: 10px;
+    margin-bottom: 5px;
+  }
+  
+  #add-curso input,
+  #add-curso select {
+    width: calc(100% - 20px);
+    padding: 10px;
+    margin-bottom: 10px;
+    border: none;
+    border-radius: 5px;
+  }
+  
+  #buttons-final {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  #buttons-cancelar-adicionar {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+  }
+  
+  #buttons-cancelar-adicionar button {
+    flex: 1;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  #buttons-cancelar-adicionar button:first-child {
+    background-color: #ff6b6b;
+    margin-right: 5px;
+  }
+  
+  #buttons-cancelar-adicionar button:last-child {
+    background-color: #84d07d;
+    margin-left: 5px;
+  }
+  

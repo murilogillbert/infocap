@@ -1,0 +1,55 @@
+.cursos-container {
+  max-width: 97vw;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    padding: 20px;
+  }
+  
+  .curso-item {
+    display: flex;
+    background-color: aliceblue;
+    border: 1px solid #888888;
+    border-radius: 8px;
+    padding: 20px;
+    text-align: center;
+    min-width: 200px;
+    max-width: 200px;
+    background-size: 100%;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  
+  .curso-item img {
+    max-width: 10vw;
+    border-radius: 8px;
+  }
+  
+  .curso-item h3 {
+    font-size: 1.2em;
+    margin: 10px 0;
+  }
+  
+  .curso-item p {
+    font-size: 1em;
+    margin: 10px 0;
+  }
+  
+  .curso-item button {
+    background-color: #007bff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .curso-item button a {
+    color: white;
+    text-decoration: none;
+  }
+  
+  .curso-item button:hover {
+    background-color: #0056b3;
+  }
+  

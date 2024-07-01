@@ -1,0 +1,59 @@
+/* Container geral do slider */
+.slider {
+  padding: 20px;
+  text-align: center;
+}
+
+/* Container dos cursos */
+.courses {
+  display: flex;
+  overflow-x: auto;
+  gap: 20px;
+  padding: 20px 0;
+  scrollbar-width: thin;
+  scrollbar-color: #888 #e2e2e2;
+  align-items: center;
+  justify-content: space-around;
+  flex-wrap: nowrap;
+}
+
+/* Estilização da barra de rolagem para navegadores baseados em WebKit */
+.courses::-webkit-scrollbar {
+  height: 12px;
+}
+
+.courses::-webkit-scrollbar-track {
+  border-radius: 10px;
+}
+
+.courses::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  border: 3px solid #e2e2e2;
+}
+
+/* Estilo dos cards de curso */
+.course {
+  min-width: 200px;
+  flex: 0 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(146, 146, 146, 0.1);
+}
+
+/* Estilo da imagem do curso */
+.course img {
+  max-width: 150px;
+  height: auto;
+  margin-bottom: 10px;
+}
+
+/* Estilo do título do curso */
+.course p {
+  font-size: 1.2em;
+  margin: 5px 0;
+}

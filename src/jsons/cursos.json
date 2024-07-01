@@ -1,0 +1,51 @@
+[
+    {
+      "id": 1,
+      "img": "https://example.com/imagens/curso1.jpg",
+      "nome": "Introdução à Programação",
+      "materia": "Programação Básica"
+    },
+    {
+      "id": 2,
+      "img": "https://example.com/imagens/curso2.jpg",
+      "nome": "Desenvolvimento Web",
+      "materia": "HTML, CSS e JavaScript"
+    },
+    {
+      "id": 3,
+      "img": "src/assets/logo.png",
+      "nome": "Banco de Dados",
+      "materia": "SQL e NoSQL"
+    },
+    {
+      "id": 4,
+      "img": "https://example.com/imagens/curso4.jpg",
+      "nome": "Machine Learning",
+      "materia": "Aprendizado de Máquina"
+    },
+    {
+      "id": 5,
+      "img": "https://example.com/imagens/curso1.jpg",
+      "nome": "Introdução à Programação",
+      "materia": "Programação Básica"
+    },
+    {
+      "id": 6,
+      "img": "https://example.com/imagens/curso2.jpg",
+      "nome": "Desenvolvimento Web",
+      "materia": "HTML, CSS e JavaScript"
+    },
+    {
+      "id": 7,
+      "img": "https://example.com/imagens/curso3.jpg",
+      "nome": "Banco de Dados",
+      "materia": "SQL e NoSQL"
+    },
+    {
+      "id": 8,
+      "img": "https://example.com/imagens/curso4.jpg",
+      "nome": "Machine Learning",
+      "materia": "Aprendizado de Máquina"
+    }
+  ]
+  

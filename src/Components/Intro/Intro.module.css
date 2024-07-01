@@ -1,0 +1,20 @@
+.intro {
+    display: flex;
+    justify-content:space-evenly;
+    padding: 20px;
+    color: black;
+  }
+  
+  .text {
+    max-width: 50%;
+  }
+  
+  .image img {
+    max-width: 25vw;
+    height: auto;
+    border-radius: 2rem;
+  }
+  
+  .enfase{
+    color: #007AFF;
+  }

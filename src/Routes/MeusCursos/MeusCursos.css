@@ -1,0 +1,96 @@
+/* MeusCursos.css */
+.meus-cursos {
+  
+  max-width: 97vw;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    flex-direction: column;
+    gap: 20px;
+    padding: 20px;
+}
+
+.meus-cursos h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.cursos-grid {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+}
+
+.curso-item {
+  display: flex;
+  background-color: aliceblue;
+  border: 10px solid #e8e8e8;
+  border-radius: 8px;
+  padding: 20px;
+  text-align: center;
+  min-width: 200px;
+  max-width: 200px;
+  height: 200px;
+  background-size: 100%;
+  flex-direction: column;
+  justify-content: space-between;
+
+}
+
+.curso-item:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.curso-item h3 {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.curso-item p {
+  line-height: 1.6;
+  margin-bottom: 15px;
+}
+
+.ultimo-curso-visto {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+}
+
+.ultimo-curso-visto img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  margin-bottom: 15px;
+}
+
+.ultimo-curso-visto h3 {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.ultimo-curso-visto p {
+  line-height: 1.6;
+  margin-bottom: 15px;
+}
+
+.meus-cursos a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.meus-cursos a:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+  .cursos-grid {
+    flex-direction: column;
+  }
+}

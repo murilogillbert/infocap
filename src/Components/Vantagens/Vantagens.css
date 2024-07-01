@@ -1,0 +1,40 @@
+/* Vantagens.css */
+.vantagens {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    padding: 40px 0;
+  }
+  
+  .vantagens-item {
+    text-align: center;
+    width: 300px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease-in-out;
+  }
+  
+  .vantagens-item:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+  
+  .vantagens-icon {
+    font-size: 40px;
+    margin-bottom: 15px;
+    color: #333;
+  }
+  
+  .vantagens-title {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+  
+  .vantagens-description {
+    line-height: 1.6;
+  }
+  

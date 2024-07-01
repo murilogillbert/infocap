@@ -1,0 +1,79 @@
+.curso-container {
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  gap: 20px;
+  align-items: center;
+}
+
+.curso-container img.curso-image {
+  max-width: 500px;
+  height: auto;
+  margin-bottom: 20px;
+}
+
+.videos-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.video-item {
+  background-color: aliceblue;
+  border: 1px solid #888888;
+  border-radius: 8px;
+  padding: 20px;
+  text-align: center;
+  width: calc(30% - 40px);
+  background-size:100%;
+}
+
+.video-thumbnail {
+  max-width: 100px;
+  height: auto;
+  border-radius: 4px;
+}
+
+.video-item h4 {
+  margin: 0;
+  flex-grow: 1;
+}
+
+.video-item a {
+  color: #007bff;
+  text-decoration: none;
+}
+
+.video-item a:hover {
+  text-decoration: underline;
+}
+
+/* Media Queries for Responsiveness */
+@media (max-width: 768px) {
+  .videos-container{
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    gap: 20px;
+    align-items: center;
+  }
+
+  .video-item {
+    flex-direction: column;
+    align-items: flex-start;
+    width: fit-content;
+  }
+
+  .video-thumbnail {
+    max-width: 100%;
+    height: auto;
+    margin-bottom: 10px;
+  }
+
+  .video-item h4 {
+    width: 100vw;
+    margin-bottom: 10px;
+  }
+}

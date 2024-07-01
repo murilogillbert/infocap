@@ -1,0 +1,21 @@
+.forum {
+    padding: 20px;    
+  }
+  
+  .comments {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .comment {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .comment span {
+    font-size: 0.9em;
+    color: #009dff;
+  }
+  
