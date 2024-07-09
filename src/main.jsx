@@ -13,6 +13,7 @@ import Curso from './Routes/Curso/Curso';
 import Video from './Routes/Video/Video';
 import Configuracao from './Routes/Configuracao/Configuracao';
 import Gerenciador from './Routes/Gerenciador/Gerenciador';
+import Admin from './Routes/Admin/Admin';
 
 const router = createBrowserRouter([
   {
@@ -50,6 +51,9 @@ const router = createBrowserRouter([
       },{
         path:"/Gerenciador",
         element:<Gerenciador/>
+      },{
+        path:"/Admin",
+        element:<Admin/>
       }
       
     ]
