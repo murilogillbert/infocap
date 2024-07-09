@@ -1,15 +1,13 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './Admin.css';
 
 const Admin = () => {
-  const [token, setToken] = useState(null);
-  const [userRole, setUserRole] = useState(null);
-  const [data, setData] = useState({ users: [], courses: [], monitors: [] });
-  const [credentials, setCredentials] = useState({
-    login: '',
-    password: ''
-  });
+  const [credentials, setCredentials] = useState({ login: '', password: '' });
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [users, setUsers] = useState([]);
+  const [courses, setCourses] = useState([]);
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     setCredentials({
@@ -18,131 +16,118 @@ const Admin = () => {
     });
   };
 
-  const handleLogin = async (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch('https://infocap-back.onrender.com/auth/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(credentials),
-      });
-
+      const response = await fetch('https://infocap-back.onrender.com/user/findAll');
       if (response.ok) {
         const data = await response.json();
-        localStorage.setItem('login', credentials.login); // Store login for later use
-        setToken(data.token);
-        localStorage.setItem('token', data.token);
+        const user = data.find(
+          (user) =>
+            (user.login === credentials.login || user.email === credentials.login) &&
+            user.role === 'ADMIN'
+        );
+
+        if (user) {
+          setIsAuthenticated(true);
+          setUsers(data);  // Armazena todos os usuários
+          // Fetch courses data (assumindo que você tem uma rota para isso)
+          const coursesResponse = await fetch('https://infocap-back.onrender.com/courses');
+          if (coursesResponse.ok) {
+            const coursesData = await coursesResponse.json();
+            setCourses(coursesData);
+          } else {
+            console.error('Failed to fetch courses');
+          }
+        } else {
+          console.error('Invalid credentials or not an admin');
+        }
       } else {
-        console.error('Failed to login');
+        console.error('Failed to fetch users');
       }
     } catch (error) {
       console.error('Error:', error);
     }
   };
 
-  useEffect(() => {
-    const verifyTokenAndRole = async () => {
-      if (token) {
-        try {
-          const userResponse = await axios.get('https://infocap-back.onrender.com/user/findAll', {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          });
-
-          const currentUser = userResponse.data.find(user => user.login === localStorage.getItem('login'));
-
-          if (currentUser && currentUser.role === 'ADMIN') {
-            setUserRole('ADMIN');
-            fetchData(token);
-          } else {
-            alert('Você não tem permissão para acessar esta página.');
-          }
-        } catch (error) {
-          console.error('Erro ao verificar token e role:', error);
-          alert('Erro ao verificar token e role.');
-        }
-      }
-    };
-
-    const fetchData = async (token) => {
-      try {
-        const usersResponse = await axios.get('https://infocap-back.onrender.com/user/findAll', {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
-        const coursesResponse = await axios.get('https://infocap-back.onrender.com/course/findAll', {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
-
-        setData({
-          users: usersResponse.data,
-          courses: coursesResponse.data,
-          monitors: usersResponse.data.filter(user => user.role === 'MONITOR'),
-        });
-      } catch (error) {
-        console.error('Erro ao buscar dados:', error);
-      }
-    };
-
-    verifyTokenAndRole();
-  }, [token]);
-
-  if (!token) {
+  if (!isAuthenticated) {
     return (
-      <div className="container">
-        <h2 className="header">Login</h2>
-        <form onSubmit={handleLogin} className="loginForm">
-          <div className="formGroup">
-            <label className="label">Login:</label>
-            <input type="text" name="login" value={credentials.login} onChange={handleChange} required className="input" />
+      <div className="login-container">
+        <h2>Admin Login</h2>
+        <form onSubmit={handleSubmit}>
+          <div>
+            <label>Login (Username or Email):</label>
+            <input
+              type="text"
+              name="login"
+              value={credentials.login}
+              onChange={handleChange}
+              required
+            />
           </div>
-          <div className="formGroup">
-            <label className="label">Password:</label>
-            <input type="password" name="password" value={credentials.password} onChange={handleChange} required className="input" />
+          <div>
+            <label>Password:</label>
+            <input
+              type="password"
+              name="password"
+              value={credentials.password}
+              onChange={handleChange}
+              required
+            />
           </div>
-          <button type="submit" className="button">Login</button>
+          <button type="submit">Login</button>
         </form>
       </div>
     );
   }
 
-  if (userRole !== 'ADMIN') {
-    return <div className="container">Verificando permissões...</div>;
-  }
-
   return (
-    <div className="container">
-      <h1 className="header">Painel Administrativo</h1>
-      <div className="dataSection">
-        <h2>Usuários</h2>
-        <ul className="list">
-          {data.users.map(user => (
-            <li key={user.id} className="listItem">{user.name}</li>
-          ))}
-        </ul>
-      </div>
-      <div className="dataSection">
-        <h2>Cursos</h2>
-        <ul className="list">
-          {data.courses.map(course => (
-            <li key={course.id} className="listItem">{course.name}</li>
-          ))}
-        </ul>
-      </div>
-      <div className="dataSection">
-        <h2>Monitores</h2>
-        <ul className="list">
-          {data.monitors.map(monitor => (
-            <li key={monitor.id} className="listItem">{monitor.name}</li>
-          ))}
-        </ul>
-      </div>
+    <div className="admin-container">
+      <h2>Admin Dashboard</h2>
+      <section>
+        <h3>Usuários</h3>
+        <table className="table">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Nome</th>
+              <th>Email</th>
+              <th>Role</th>
+            </tr>
+          </thead>
+          <tbody>
+            {users.map((user) => (
+              <tr key={user.id}>
+                <td>{user.id}</td>
+                <td>{user.name}</td>
+                <td>{user.email}</td>
+                <td>{user.role}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </section>
+      <section>
+        <h3>Cursos</h3>
+        <table className="table">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Nome</th>
+              <th>Monitor</th>
+            </tr>
+          </thead>
+          <tbody>
+            {courses.map((course) => (
+              <tr key={course.id}>
+                <td>{course.id}</td>
+                <td>{course.name}</td>
+                <td>{course.monitor}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </section>
     </div>
   );
 };
