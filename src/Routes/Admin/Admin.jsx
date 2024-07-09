@@ -21,6 +21,7 @@ const Admin = () => {
     try {
       const response = await fetch('https://infocap-back.onrender.com/user/findAll');
       if (response.ok) {
+        console.log('Opaaa')
         const data = await response.json();
         const user = data.find(
           (user) =>
@@ -49,7 +50,7 @@ const Admin = () => {
       console.error('Error:', error);
     }
   };
-
+/*
   if (!isAuthenticated) {
     return (
       <div className="login-container">
@@ -80,7 +81,7 @@ const Admin = () => {
       </div>
     );
   }
-
+*/
   return (
     <div className="admin-container">
       <h2>Admin Dashboard</h2>
