@@ -51,7 +51,7 @@ export default function ResetPassword() {
                 if (response.ok) {
                     setTextConfirmaEnvioEmail('Email Enviado!');
                 } else if(response.status === 403){
-                    setTextConfirmaEnvioEmail('O servidor recebeu a requisição, mas está recusando executá-la devido a permissões insuficientes do cliente')
+                    setTextConfirmaEnvioEmail('403 Forbidden : O servidor recebeu a requisição, mas está recusando executá-la devido a permissões insuficientes do cliente')
                 } else if (response.status === 404) {
                     setTextConfirmaEnvioEmail('Usuário não encontrado');
                 } else {
