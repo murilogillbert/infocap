@@ -16,6 +16,7 @@ export default function ResetPassword() {
                 const usersData = await response.json();
                 
                 const user = usersData.find(user => user.email === userEmail);
+                console.log(user)
                 console.log(user.id)
                 if (user) {
                     setUserData(user); // Define userData com o objeto encontrado
