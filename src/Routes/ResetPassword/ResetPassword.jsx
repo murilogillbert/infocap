@@ -21,7 +21,7 @@ export default function ResetPassword() {
                 if (user) {
                     setUserData(user); // Define userData com o objeto encontrado
                     console.log("Usuario setado : " + userData)
-                    sendEmail(); // Chama a função para enviar o email de redefinição
+                    sendEmail(user); // Chama a função para enviar o email de redefinição
                 } else {
                     setTextConfirmaEnvioEmail('Email Não Cadastrado ou Inválido');
                 }
@@ -35,10 +35,11 @@ export default function ResetPassword() {
     };
     
 
-    const sendEmail = async () => {
+    const sendEmail = async (e) => {
         try {
-            if (userData) {
-                const response = await fetch(`https://infocap-back.onrender.com/user/resetPassword/${userData.id}`, {
+            console.log("O e é : " + e)
+            if (e) {
+                const response = await fetch(`https://infocap-back.onrender.com/user/resetPassword/${e.id}`, {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json'
