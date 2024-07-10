@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 
 const Login = () => {
-  const [email, setEmail] = useState('');
+  const [login, setLogin] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
 
@@ -13,7 +13,7 @@ const Login = () => {
     setError('');
     try {
       const requestBody = {
-        "login": email,
+        "login": login,
         "password": password
       };
 
@@ -55,11 +55,11 @@ const Login = () => {
       <h1>Login</h1>
       <form onSubmit={checkUser}>
         {error && <label className={styles.error}>{error}</label>}
-        <label>Email</label>
+        <label>Login</label>
         <input
           type="text"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          value={login}
+          onChange={(e) => setLogin(e.target.value)}
           required
         />
         <label>Senha</label>

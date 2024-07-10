@@ -25,7 +25,7 @@ const Cadastro = () => {
 
     const newUser = {
       CPF: cpf,
-      login: nome, // Usando o nome como login, você pode ajustar conforme necessário
+      login: nome, // Usando o nome como login
       password,
       name: nome,
       selo: 'ouro', // Valor fixo, ajuste após testes
