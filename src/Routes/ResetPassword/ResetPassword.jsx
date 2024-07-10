@@ -20,6 +20,7 @@ export default function ResetPassword() {
                 console.log(user.id)
                 if (user) {
                     setUserData(user); // Define userData com o objeto encontrado
+                    console.log("Usuario setado : " + userData)
                     sendEmail(); // Chama a função para enviar o email de redefinição
                 } else {
                     setTextConfirmaEnvioEmail('Email Não Cadastrado ou Inválido');
