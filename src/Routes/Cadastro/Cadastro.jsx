@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 import styles from './Cadastro.module.css';
 
 const Cadastro = () => {
@@ -8,9 +9,8 @@ const Cadastro = () => {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [cpf, setCpf] = useState('');
-  const [celular, setCelular] = useState('');
 
-  function addUser(e) {
+  const addUser = async (e) => {
     e.preventDefault();
 
     if (email !== repeatEmail) {
@@ -24,31 +24,36 @@ const Cadastro = () => {
     }
 
     const newUser = {
-      nome,
+      CPF: cpf,
+      login: nome, // Usando o nome como login, você pode ajustar conforme necessário
+      password,
+      name: nome,
+      selo: 'ouro', // Valor fixo, ajuste após testes
       email,
-      senha: password,
-      cpf,
-      celular,
-      //O autenticado está em true pois não há formas ainda de autenticar
-      autenticado: true,
-      curso:[]
+      role: 'ADMIN' // Valor fixo, ajuste após testes
     };
 
-    let users = JSON.parse(localStorage.getItem('user')) || { user: [] };
-    users.user.push(newUser);
-    localStorage.setItem('user', JSON.stringify(users));
-
-    // Resetar o formulário
-    setNome('');
-    setEmail('');
-    setRepeatEmail('');
-    setPassword('');
-    setConfirmPassword('');
-    setCpf('');
-    setCelular('');
+    try {
+      const response = await axios.post('https://infocap-back.onrender.com/user/create', newUser);
+      if (response.status === 201) {
+        alert('Usuário cadastrado com sucesso!');
+        // Resetar o formulário
+        setNome('');
+        setEmail('');
+        setRepeatEmail('');
+        setPassword('');
+        setConfirmPassword('');
+        setCpf('');
+      } else {
+        alert('Erro ao cadastrar usuário.');
+      }
+    } catch (error) {
+      console.error('Erro ao cadastrar usuário:', error);
+      alert('Erro ao cadastrar usuário.');
+    }
 
     console.log('Usuário adicionado:', newUser);
-  }
+  };
 
   return (
     <div className={styles.cadastro}>
@@ -92,13 +97,6 @@ const Cadastro = () => {
           />
         </div>
         <div>
-          <label>Celular</label>
-          <input
-            type="text"
-            value={celular}
-            onChange={(e) => setCelular(e.target.value)}
-            required
-          />
           <label>CPF</label>
           <input
             type="text"
