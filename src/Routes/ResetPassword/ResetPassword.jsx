@@ -14,7 +14,7 @@ export default function ResetPassword() {
             const response = await fetch('https://infocap-back.onrender.com/user/findAll');
             if (response.ok) {
                 const usersData = await response.json();
-                
+
                 const user = usersData.find(user => user.email === userEmail);
                 console.log(user)
                 console.log(user.id)
@@ -33,13 +33,22 @@ export default function ResetPassword() {
             setTextConfirmaEnvioEmail('Erro ao verificar usuário');
         }
     };
-    
 
+    /* A função sendEmail recebe como parâmetro o json de um usuário
+        {
+        "id": 1,
+        "role": "ADMIN",
+        "name": "João da Silva",
+        "CPF": "12345678901",
+        "email": "usuario@example.com",
+        "login": "usuario123"
+        } 
+    */
     const sendEmail = async (e) => {
         try {
             console.log("O e é : " + e)
             console.log("O e é : " + e.id)
-            
+
             if (e) {
                 const response = await fetch(`https://infocap-back.onrender.com/user/resetPassword/${e.id}`, {
                     method: 'GET',
@@ -50,7 +59,7 @@ export default function ResetPassword() {
 
                 if (response.ok) {
                     setTextConfirmaEnvioEmail('Email Enviado!');
-                } else if(response.status === 403){
+                } else if (response.status === 403) {
                     setTextConfirmaEnvioEmail('403 Forbidden : O servidor recebeu a requisição, mas está recusando executá-la devido a permissões insuficientes do cliente')
                 } else if (response.status === 404) {
                     setTextConfirmaEnvioEmail('Usuário não encontrado');
@@ -65,6 +74,14 @@ export default function ResetPassword() {
             setTextConfirmaEnvioEmail('Erro ao enviar email');
         }
     };
+
+    const array = [1, 2, 3, 4, 5];
+
+    const greaterThanThree = array.some(element => element > 3);
+    console.log(greaterThanThree); // true
+
+    const allGreaterThanZero = array.every(element => element > 0);
+    console.log(allGreaterThanZero); // true
 
     const verifyToken = async () => {
         try {
@@ -90,7 +107,7 @@ export default function ResetPassword() {
 
     const changePassword = async (e) => {
         e.preventDefault();
-        
+
         try {
             if (userData && tokenEmail && senha) {
                 const response = await fetch(`https://infocap-back.onrender.com/user/updatePassword/${tokenEmail}`, {
