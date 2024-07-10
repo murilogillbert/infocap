@@ -51,6 +51,7 @@ const Login = () => {
       </form>
       
       <span className={styles.cadastro}>Não possue conta?<Link to="/Cadastro">Cadastre-se</Link></span>
+      <span className={styles.cadastro}>Esqueceu sua senha?<Link to='/resetPassword'>Mude aqui</Link></span>
     </div>
   );
 };

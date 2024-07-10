@@ -4,6 +4,7 @@ import App from './Routes/App/App';
 import Home from './Routes/Home/Home';
 import Login from './Routes/Login/Login';
 import Cadastro from './Routes/Cadastro/Cadastro';
+import ResetPassword from './Routes/ResetPassword/ResetPassword';
 import MeusCursos from './Routes/MeusCursos/MeusCursos';
 import Cursos from './Routes/Cursos/Cursos';
 import Curso from './Routes/Curso/Curso';
@@ -23,6 +24,7 @@ const router = createBrowserRouter([
       { path: "/", element: <Home /> },
       { path: "/login", element: <Login /> },
       { path: "/cadastro", element: <Cadastro /> },
+      {path:"/resetPassword",element:<ResetPassword/>},
       { path: "/meusCursos", element: <MeusCursos /> },
       { path: "/cursos", element: <Cursos /> },
       { path: "/cursos/:id", element: <Curso /> },
