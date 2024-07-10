@@ -7,17 +7,19 @@ export default function ResetPassword() {
     const [tokenValido, setTokenValido] = useState(false);
     const [userData, setUserData] = useState(null);
     const [textConfirmaEnvioEmail, setTextConfirmaEnvioEmail] = useState(null);
-    const [resetStatus, setResetStatus] = useState(null); // Para armazenar o estado da operação de reset
+    const [resetStatus, setResetStatus] = useState(null);
 
     const verifyUser = async () => {
         try {
             const response = await fetch('https://infocap-back.onrender.com/user/findAll');
             if (response.ok) {
                 const usersData = await response.json();
-                const emailExists = usersData.find(user => user.email === userEmail);
-                if (emailExists) {
-                    setUserData(emailExists);
-                    sendEmail(); // Call sendEmail function
+                
+                const user = usersData.find(user => user.email === userEmail);
+                console.log(user.id)
+                if (user) {
+                    setUserData(user); // Define userData com o objeto encontrado
+                    sendEmail(); // Chama a função para enviar o email de redefinição
                 } else {
                     setTextConfirmaEnvioEmail('Email Não Cadastrado ou Inválido');
                 }
@@ -26,24 +28,30 @@ export default function ResetPassword() {
             }
         } catch (error) {
             console.error('Erro ao verificar usuário:', error);
+            setTextConfirmaEnvioEmail('Erro ao verificar usuário');
         }
     };
+    
 
     const sendEmail = async () => {
         try {
-            const response = await fetch(`https://infocap-back.onrender.com/user/resetPassword/${userData.id}`, {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            });
+            if (userData) {
+                const response = await fetch(`https://infocap-back.onrender.com/user/resetPassword/${userData.id}`, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                });
 
-            if (response.ok) {
-                setTextConfirmaEnvioEmail('Email Enviado!');
-            } else if (response.status === 404) {
-                setTextConfirmaEnvioEmail('Usuário não encontrado');
+                if (response.ok) {
+                    setTextConfirmaEnvioEmail('Email Enviado!');
+                } else if (response.status === 404) {
+                    setTextConfirmaEnvioEmail('Usuário não encontrado');
+                } else {
+                    setTextConfirmaEnvioEmail('Erro ao enviar email');
+                }
             } else {
-                setTextConfirmaEnvioEmail('Erro ao enviar email');
+                setTextConfirmaEnvioEmail('Dados de usuário não encontrados');
             }
         } catch (error) {
             console.error('Erro ao enviar email:', error);
@@ -77,25 +85,29 @@ export default function ResetPassword() {
         e.preventDefault();
         
         try {
-            const response = await fetch(`https://infocap-back.onrender.com/user/updatePassword/${tokenEmail}`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    userId: userData.id,
-                    newPassword: senha
-                })
-            });
+            if (userData && tokenEmail && senha) {
+                const response = await fetch(`https://infocap-back.onrender.com/user/updatePassword/${tokenEmail}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        userId: userData.id,
+                        newPassword: senha
+                    })
+                });
 
-            if (response.ok) {
-                setResetStatus('Senha redefinida com sucesso');
-            } else if (response.status === 400) {
-                setResetStatus('Token inválido ou expirado');
-            } else if (response.status === 404) {
-                setResetStatus('Usuário não encontrado');
+                if (response.ok) {
+                    setResetStatus('Senha redefinida com sucesso');
+                } else if (response.status === 400) {
+                    setResetStatus('Token inválido ou expirado');
+                } else if (response.status === 404) {
+                    setResetStatus('Usuário não encontrado');
+                } else {
+                    setResetStatus('Erro ao redefinir senha');
+                }
             } else {
-                setResetStatus('Erro ao redefinir senha');
+                setResetStatus('Dados incompletos para redefinir senha');
             }
         } catch (error) {
             console.error('Erro ao redefinir senha:', error);
@@ -139,7 +151,6 @@ export default function ResetPassword() {
         );
     }
 
-    // Seção para digitar a nova senha
     return (
         <section className="container-nova-senha">
             <form onSubmit={changePassword}>
