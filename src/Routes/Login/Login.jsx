@@ -2,11 +2,13 @@ import React, { useState } from 'react';
 import styles from './Login.module.css';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import { useAuth } from '../../AuthContext';  // Importar o contexto de autenticação
 
 const Login = () => {
   const [login, setLogin] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const { login: authenticate } = useAuth();  // Usar a função de login do contexto
 
   const checkUser = async (e) => {
     e.preventDefault();
@@ -22,7 +24,7 @@ const Login = () => {
       if (response.status === 200) {
         const { token } = response.data;
         console.log('Autenticação bem-sucedida, token:', token);
-        // Armazenar o token no localStorage ou state global e redirecionar o usuário
+        authenticate(token);  // Chamar a função de login do contexto
       } else {
         console.log('Dados inválidos fornecidos');
         setError('Dados inválidos fornecidos.');

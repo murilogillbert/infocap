@@ -1,23 +1,12 @@
-import { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useAuth } from '../../AuthContext'; // Importe o contexto de autenticação
 import styles from './Navbar.module.css';
 
 const Navbar = () => {
+  const { isAuthenticated, logout } = useAuth(); // Use a informação de autenticação e a função de logout
   const [menuOpen, setMenuOpen] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
-
-  useEffect(() => {
-    const usersData = JSON.parse(localStorage.getItem('user'));
-    if (usersData && Array.isArray(usersData.user)) {
-      usersData.user.forEach((user) => {
-        if (user.autenticado === true) {
-          setIsLoggedIn(true);
-        }
-      });
-      console.log(usersData.user[0]); // Exibindo o primeiro usuário para depuração
-    }
-  }, []);
 
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
@@ -28,17 +17,10 @@ const Navbar = () => {
   };
 
   const handleLogout = () => {
-    const usersData = JSON.parse(localStorage.getItem('user'));
-    const updatedUsers = usersData.user.map((user) => {
-      return { ...user, autenticado: false };
-    });
-
-    localStorage.setItem('user', JSON.stringify({ user: updatedUsers }));
-
-    // Lógica de logout aqui
-    setIsLoggedIn(false);
+    logout(); // Chame a função de logout do contexto
     setDropdownOpen(false);
   };
+
   //Verifica a cada 5 segundos se a largura da tela está abaixo ou acima de 768px
   //Mudando dinamicamente o conteúdo do menu  
   useEffect(() => {
@@ -65,7 +47,7 @@ const Navbar = () => {
             <li><Link to="/about">Sobre</Link></li>
             <li><Link to="/cursos">Cursos</Link></li>
             <li><Link to="/contact">Contato</Link></li>
-            {isLoggedIn && menuOpen && (
+            {isAuthenticated && menuOpen && (
               <>
                 <li><Link to="/certificados">Certificados</Link></li>
                 <li><Link to="/configuracao">Configuração</Link></li>
@@ -75,11 +57,9 @@ const Navbar = () => {
             )}
           </ul>
           <div className={styles.auth}>
-            {isLoggedIn ? (
+            {isAuthenticated ? (
               <div className={styles.profileContainer}>
-                <div className={styles.profileIcon} onClick={toggleDropdown}>
-                  <img src='src/assets/profile.png' alt='profile'></img>
-                </div>
+                <button className={styles.profileIcon} onClick={toggleDropdown}>Meu Perfil</button>
                 {dropdownOpen && !menuOpen && (
                   <div className={styles.dropdownMenu}>
                     <Link to="/certificados">Certificados</Link>

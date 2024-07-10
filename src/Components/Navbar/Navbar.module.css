@@ -38,8 +38,12 @@
   border-radius: 3rem;
 }
 
-.profileIcon img{
-  width: 100px;
+.profileButton img{
+  padding: 5px 10px;
+  cursor: pointer;
+  background-color: rgb(217, 233, 247);
+  color: black;
+  border-radius: 1rem;
 }
 
 .menu {
