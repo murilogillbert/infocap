@@ -38,6 +38,8 @@ export default function ResetPassword() {
     const sendEmail = async (e) => {
         try {
             console.log("O e é : " + e)
+            console.log("O e é : " + e.id)
+            
             if (e) {
                 const response = await fetch(`https://infocap-back.onrender.com/user/resetPassword/${e.id}`, {
                     method: 'GET',
