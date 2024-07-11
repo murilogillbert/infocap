@@ -12,15 +12,17 @@ export default function ResetPassword() {
     const verifyUser = async () => {
         try {
             const response = await fetch('https://infocap-back.onrender.com/user/findAll');
+            console.log('A respota é: ' + response.ok)
             if (response.ok) {
                 const usersData = await response.json();
 
                 const user = usersData.find(user => user.email === userEmail);
-                console.log(user)
-                console.log(user.id)
+                console.log("Exibindo o user: " + user)
+                console.log("Exibindo o user.id : " + user.id)
                 if (user) {
                     setUserData(user); // Define userData com o objeto encontrado
                     console.log("Usuario setado : " + userData)
+                    console.log("Usuário Passado : " + user)
                     sendEmail(user); // Chama a função para enviar o email de redefinição
                 } else {
                     setTextConfirmaEnvioEmail('Email Não Cadastrado ou Inválido');
@@ -74,14 +76,6 @@ export default function ResetPassword() {
             setTextConfirmaEnvioEmail('Erro ao enviar email');
         }
     };
-
-    const array = [1, 2, 3, 4, 5];
-
-    const greaterThanThree = array.some(element => element > 3);
-    console.log(greaterThanThree); // true
-
-    const allGreaterThanZero = array.every(element => element > 0);
-    console.log(allGreaterThanZero); // true
 
     const verifyToken = async () => {
         try {
