@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styles from './Login.module.css';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
@@ -9,6 +10,7 @@ const Login = () => {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const { login: authenticate } = useAuth();  // Usar a função de login do contexto
+  const navigate = useNavigate();  // Hook para navegação
 
   const checkUser = async (e) => {
     e.preventDefault();
@@ -25,8 +27,7 @@ const Login = () => {
         const { token } = response.data;
         console.log('Autenticação bem-sucedida, token:', token);
         authenticate(token);  // Chamar a função de login do contexto
-        //Após mudar para um servidor própio colocar mudar a url 
-        window.location.href('https://infocap.vercel.app/')
+        navigate('/');  // Redirecionar para a página inicial
       } else {
         console.log('Dados inválidos fornecidos');
         setError('Dados inválidos fornecidos.');
@@ -49,7 +50,7 @@ const Login = () => {
         }
       } else {
         // Erro de rede ou outro tipo de erro
-        setError('Erro na conexão. Verifique sua rede e tente novamente.');
+        setError(error + ' : Erro na conexão. Verifique sua rede e tente novamente.');
       }
     }
   };
