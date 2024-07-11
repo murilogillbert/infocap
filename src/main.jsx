@@ -13,6 +13,7 @@ import Video from './Routes/Video/Video';
 import Configuracao from './Routes/Configuracao/Configuracao';
 import Gerenciador from './Routes/Gerenciador/Gerenciador';
 import Admin from './Routes/Admin/Admin';
+import ResetPassword from './Routes/ResetPassword/ResetPassword';
 import { AuthProvider } from './AuthContext';  // Importar o AuthProvider
 
 const router = createBrowserRouter([
@@ -55,6 +56,9 @@ const router = createBrowserRouter([
       },{
         path:"/admin",
         element:<Admin/>
+      },{
+        path:"/trocarSenha",
+        element:<ResetPassword/>
       }
     ]
   }
@@ -62,7 +66,7 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <AuthProvider> {/* envolvido com AuthProvider */}
+    <AuthProvider>
       <RouterProvider router={router} />
     </AuthProvider>
   </React.StrictMode>

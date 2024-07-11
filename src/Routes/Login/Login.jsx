@@ -74,8 +74,8 @@ const Login = () => {
         <button type="submit">Login</button>
       </form>
 
-      <span className={styles.cadastro}>Não possui conta? <Link to="/Cadastro">Cadastre-se</Link></span>
-      <span className={styles.cadastro}>Esqueceu sua senha? <Link to="/resetPassword">Mude aqui</Link></span>
+      <span className={styles.cadastro}>Não possui conta? <Link to="/cadastro">Cadastre-se</Link></span>
+      <span className={styles.cadastro}>Esqueceu sua senha? <Link to="/trocarSenha">Mude aqui</Link></span>
     </div>
   );
 };
