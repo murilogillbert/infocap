@@ -36,7 +36,7 @@ export default function ResetPassword() {
         }
     };
 
-    /* A função sendEmail recebe como parâmetro o json de um usuário
+    /* A função sendEmail recebe como parâmetro 'e' o json de um usuário
         {
         "id": 1,
         "role": "ADMIN",
@@ -46,36 +46,37 @@ export default function ResetPassword() {
         "login": "usuario123"
         } 
     */
-    const sendEmail = async (e) => {
-        try {
-            console.log("O e é : " + e)
-            console.log("O e é : " + e.id)
-
-            if (e) {
-                const response = await fetch(`https://infocap-back.onrender.com/user/resetPassword/${e.id}`, {
-                    method: 'GET',
-                    headers: {
-                        'Content-Type': 'application/json'
+        const sendEmail = async (user) => {
+            try {
+                console.log("O usuário é: ", user);
+                console.log("O ID do usuário é: ", user.id);
+        
+                if (user && user.id) {
+                    const response = await fetch(`https://infocap-back.onrender.com/user/resetPassword/${user.id}`, {
+                        method: 'GET',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        }
+                    });
+        
+                    if (response.ok) {
+                        setTextConfirmaEnvioEmail('Email enviado com sucesso!');
+                    } else if (response.status === 403) {
+                        setTextConfirmaEnvioEmail('403 Forbidden: O servidor recebeu a requisição, mas está recusando executá-la devido a permissões insuficientes do cliente.');
+                    } else if (response.status === 404) {
+                        setTextConfirmaEnvioEmail('Usuário não encontrado.');
+                    } else {
+                        setTextConfirmaEnvioEmail('Erro ao enviar email.');
                     }
-                });
-
-                if (response.ok) {
-                    setTextConfirmaEnvioEmail('Email Enviado!');
-                } else if (response.status === 403) {
-                    setTextConfirmaEnvioEmail('403 Forbidden : O servidor recebeu a requisição, mas está recusando executá-la devido a permissões insuficientes do cliente')
-                } else if (response.status === 404) {
-                    setTextConfirmaEnvioEmail('Usuário não encontrado');
                 } else {
-                    setTextConfirmaEnvioEmail('Erro ao enviar email');
+                    setTextConfirmaEnvioEmail('Dados de usuário não encontrados.');
                 }
-            } else {
-                setTextConfirmaEnvioEmail('Dados de usuário não encontrados');
+            } catch (error) {
+                console.error('Erro ao enviar email:', error);
+                setTextConfirmaEnvioEmail('Erro ao enviar email.');
             }
-        } catch (error) {
-            console.error('Erro ao enviar email:', error);
-            setTextConfirmaEnvioEmail('Erro ao enviar email');
-        }
-    };
+        };
+        
 
     const verifyToken = async () => {
         try {
