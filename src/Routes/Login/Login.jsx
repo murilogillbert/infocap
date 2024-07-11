@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styles from './Login.module.css';
-import { Link, Redirect } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { useAuth } from '../../AuthContext';  // Importar o contexto de autenticação
 
@@ -25,7 +25,8 @@ const Login = () => {
         const { token } = response.data;
         console.log('Autenticação bem-sucedida, token:', token);
         authenticate(token);  // Chamar a função de login do contexto
-        <Redirect to='/'/>
+        //Após mudar para um servidor própio colocar mudar a url 
+        window.location.href('https://infocap.vercel.app/')
       } else {
         console.log('Dados inválidos fornecidos');
         setError('Dados inválidos fornecidos.');
