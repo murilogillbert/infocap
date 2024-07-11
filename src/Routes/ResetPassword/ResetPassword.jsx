@@ -158,7 +158,7 @@ export default function ResetPassword() {
         verifyToken();
     };
 
-    if (textConfirmaEnvioEmail !== 'Email Enviado!') {
+    if (textConfirmaEnvioEmail !== 'Email enviado com sucesso!') {
         return (
             <section className="container-user-insert">
                 <form onSubmit={handleSubmit}>
