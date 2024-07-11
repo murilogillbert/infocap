@@ -52,7 +52,7 @@ export default function ResetPassword() {
             console.log("O ID do usuário é: ", user.id);
 
             if (user && user.id) {
-                const response = await axios.get(`https://infocap-back.onrender.com/user/resetPassword/${user.id}`, {
+                const response = await axios.put(`https://infocap-back.onrender.com/user/resetPassword/${user.id}`, {
                     headers: {
                         'Content-Type': 'application/json'
                     }
