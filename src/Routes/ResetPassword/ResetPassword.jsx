@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-
+import axios from "axios";
 export default function ResetPassword() {
     const [senha, setSenha] = useState("");
     const [userEmail, setUserEmail] = useState("");
@@ -46,37 +46,51 @@ export default function ResetPassword() {
         "login": "usuario123"
         } 
     */
-        const sendEmail = async (user) => {
-            try {
-                console.log("O usuário é: ", user);
-                console.log("O ID do usuário é: ", user.id);
-        
-                if (user && user.id) {
-                    const response = await fetch(`https://infocap-back.onrender.com/user/resetPassword/${user.id}`, {
-                        method: 'GET',
-                        headers: {
-                            'Content-Type': 'application/json'
-                        }
-                    });
-        
-                    if (response.ok) {
-                        setTextConfirmaEnvioEmail('Email enviado com sucesso!');
-                    } else if (response.status === 403) {
-                        setTextConfirmaEnvioEmail('403 Forbidden: O servidor recebeu a requisição, mas está recusando executá-la devido a permissões insuficientes do cliente.');
-                    } else if (response.status === 404) {
-                        setTextConfirmaEnvioEmail('Usuário não encontrado.');
-                    } else {
-                        setTextConfirmaEnvioEmail('Erro ao enviar email.');
+    const sendEmail = async (user) => {
+        try {
+            console.log("O usuário é: ", user);
+            console.log("O ID do usuário é: ", user.id);
+
+            if (user && user.id) {
+                const response = await axios.get(`https://infocap-back.onrender.com/user/resetPassword/${user.id}`, {
+                    headers: {
+                        'Content-Type': 'application/json'
                     }
+                });
+
+                if (response.status === 200) {
+                    setTextConfirmaEnvioEmail('Email enviado com sucesso!');
+                } else if (response.status === 403) {
+                    setTextConfirmaEnvioEmail('403 Forbidden: O servidor recebeu a requisição, mas está recusando executá-la devido a permissões insuficientes do cliente.');
+                } else if (response.status === 404) {
+                    setTextConfirmaEnvioEmail('Usuário não encontrado.');
                 } else {
-                    setTextConfirmaEnvioEmail('Dados de usuário não encontrados.');
+                    setTextConfirmaEnvioEmail('Erro ao enviar email.');
                 }
-            } catch (error) {
-                console.error('Erro ao enviar email:', error);
-                setTextConfirmaEnvioEmail('Erro ao enviar email.');
+            } else {
+                setTextConfirmaEnvioEmail('Dados de usuário não encontrados.');
             }
-        };
-        
+        } catch (error) {
+            console.error('Erro ao enviar email:', error);
+            if (error.response) {
+                // A resposta do servidor foi recebida, mas o status não está na faixa 2xx
+                if (error.response.status === 403) {
+                    setTextConfirmaEnvioEmail('403 Forbidden: O servidor recebeu a requisição, mas está recusando executá-la devido a permissões insuficientes do cliente.');
+                } else if (error.response.status === 404) {
+                    setTextConfirmaEnvioEmail('Usuário não encontrado.');
+                } else {
+                    setTextConfirmaEnvioEmail('Erro ao enviar email.');
+                }
+            } else if (error.request) {
+                // A requisição foi feita, mas nenhuma resposta foi recebida
+                setTextConfirmaEnvioEmail('Sem resposta do servidor ao enviar email.');
+            } else {
+                // Algo aconteceu ao configurar a requisição que disparou um erro
+                setTextConfirmaEnvioEmail('Erro ao configurar a requisição.');
+            }
+        }
+    };
+
 
     const verifyToken = async () => {
         try {
