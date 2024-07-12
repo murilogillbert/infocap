@@ -16,7 +16,6 @@ import Admin from './Routes/Admin/Admin';
 import { AuthProvider } from './AuthContext';
 import EnviaEmail from './Routes/TrocarSenha/EnviaEmail';
 import MudaSenha from './Routes/TrocarSenha/MudaSenha';
-import { UserProvider } from './UserContext';
 
 const router = createBrowserRouter([
   {
@@ -34,7 +33,7 @@ const router = createBrowserRouter([
       { path: "/gerenciador", element: <Gerenciador /> },
       { path: "/admin", element: <Admin /> },
       { path: "/trocarSenha", element: <EnviaEmail /> },
-      { path: "/user/reset-updatePassword/:token", element: <MudaSenha /> }
+      { path: ":3000//user/reset-updatePassword/:token", element: <MudaSenha /> }
     ]
   }
 ]);
@@ -42,9 +41,7 @@ const router = createBrowserRouter([
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <AuthProvider>
-      <UserProvider>
         <RouterProvider router={router} />
-      </UserProvider>
     </AuthProvider>
   </React.StrictMode>
 );
