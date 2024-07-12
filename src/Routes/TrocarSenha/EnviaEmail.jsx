@@ -15,10 +15,9 @@ export default function EnviaEmail() {
             if (response.status === 200) {
                 const usersData = response.data;
                 const user = usersData.find(user => user.email === userEmail);
-
                 if (user) {
                     await setUserId(user.id); // Define o userId no contexto
-                    console.log(userId)
+                    console.log(userId + ' : ' + user.id)
                     sendEmail(user);
                 } else {
                     setFeedbackMessage('Email não cadastrado ou inválido.');
