@@ -14,8 +14,8 @@ import Configuracao from './Routes/Configuracao/Configuracao';
 import Gerenciador from './Routes/Gerenciador/Gerenciador';
 import Admin from './Routes/Admin/Admin';
 import { AuthProvider } from './AuthContext';
-import EnviaEmail from './Routes/TrocarSenha/EnviaEmail';
-import MudaSenha from './Routes/TrocarSenha/MudaSenha';
+import EnviaEmail from './Routes/ResetPassword/EnviaEmail';
+import MudaSenha from './Routes/ResetPassword/MudaSenha';
 
 const router = createBrowserRouter([
   {
@@ -41,28 +41,34 @@ const router = createBrowserRouter([
       {
         path: "/cursos",
         element: <Cursos />
-      },{
-        path:"/cursos/:id",
-        element:<Curso/>
-      },{
-        path:"/cursos/:id/video/:videoId",
-        element:<Video/>
       },
       {
-        path:"/configuracao",
-        element:<Configuracao/>
-      },{
-        path:"/gerenciador",
-        element:<Gerenciador/>
-      },{
-        path:"/admin",
-        element:<Admin/>
-      },{
-        path:"/trocarSenha",
-        element:<EnviaEmail/>
-      },{
-        path:"/token/verify/:token",
-        element:<MudaSenha/>
+        path: "/cursos/:id",
+        element: <Curso />
+      },
+      {
+        path: "/cursos/:id/video/:videoId",
+        element: <Video />
+      },
+      {
+        path: "/configuracao",
+        element: <Configuracao />
+      },
+      {
+        path: "/gerenciador",
+        element: <Gerenciador />
+      },
+      {
+        path: "/admin",
+        element: <Admin />
+      },
+      {
+        path: "/trocarSenha",
+        element: <EnviaEmail />
+      },
+      {
+        path: "/user/reset-updatePassword/:token",
+        element: <MudaSenha />
       }
     ]
   }

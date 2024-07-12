@@ -3,16 +3,16 @@ import { useParams } from 'react-router-dom';
 import axios from 'axios';
 
 export default function MudaSenha() {
-    const { token } = useParams(); // Extrai o token da URL
+    const { token } = useParams(); // Obtém o token da URL
     const [senha, setSenha] = useState('');
-    const [confirmarSenha, setConfirmarSenha] = useState('');
+    const [confirmSenha, setConfirmSenha] = useState('');
     const [resetStatus, setResetStatus] = useState('');
 
     const mudarSenha = async (e) => {
         e.preventDefault();
 
-        if (senha !== confirmarSenha) {
-            setResetStatus('As senhas não coincidem');
+        if (senha !== confirmSenha) {
+            setResetStatus('As senhas não coincidem.');
             return;
         }
 
@@ -30,7 +30,6 @@ export default function MudaSenha() {
             } else {
                 setResetStatus('Erro ao redefinir senha');
             }
-
         } catch (error) {
             console.error('Erro ao redefinir senha:', error);
             setResetStatus('Erro ao redefinir senha');
@@ -55,8 +54,8 @@ export default function MudaSenha() {
                     type="password"
                     name="repete-input-muda-senha"
                     id="repete-input-muda-senha"
-                    value={confirmarSenha}
-                    onChange={(e) => setConfirmarSenha(e.target.value)}
+                    value={confirmSenha}
+                    onChange={(e) => setConfirmSenha(e.target.value)}
                     required
                 />
                 <button type="submit">Confirmar Nova Senha</button>
