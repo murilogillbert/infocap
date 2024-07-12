@@ -29,7 +29,7 @@ export default function EnviaEmail() {
 
     const sendEmail = async (user) => {
         try {
-            const response = await axios.post(`https://infocap-back.onrender.com/user/resetPassword/${user.id}`);
+            const response = await axios.get(`https://infocap-back.onrender.com/user/resetPassword/${user.id}`);
             
             if (response.status === 200) {
                 setFeedbackMessage('Email de redefinição de senha enviado com sucesso.');
