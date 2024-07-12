@@ -14,8 +14,8 @@ import Configuracao from './Routes/Configuracao/Configuracao';
 import Gerenciador from './Routes/Gerenciador/Gerenciador';
 import Admin from './Routes/Admin/Admin';
 import { AuthProvider } from './AuthContext';
-import EnviaEmail from './Routes/ResetPassword/EnviaEmail';
-import MudaSenha from './Routes/ResetPassword/MudaSenha';
+import EnviaEmail from './Routes/TrocarSenha/EnviaEmail';
+import MudaSenha from './Routes/TrocarSenha/MudaSenha';
 
 const router = createBrowserRouter([
   {
