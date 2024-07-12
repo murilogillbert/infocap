@@ -19,6 +19,12 @@ export default function MudaSenha() {
         }
 
         try {
+            //Pequenas verificações
+            console.log('Entrou\n A senha é do tipo: ' + typeof(senha))
+            console.log({
+                'userId': userId,
+                'newPassword': senha
+            })
             const response = await axios.post(`https://infocap-back.onrender.com/user/updatePassword/${token}`, {
                 userId: userId,
                 newPassword: senha
