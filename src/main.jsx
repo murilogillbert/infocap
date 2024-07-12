@@ -33,7 +33,7 @@ const router = createBrowserRouter([
       { path: "/gerenciador", element: <Gerenciador /> },
       { path: "/admin", element: <Admin /> },
       { path: "/trocarSenha", element: <EnviaEmail /> },
-      { path: ":3000//user/reset-updatePassword/:token", element: <MudaSenha /> }
+      { path: "/user/reset-updatePassword/:token", element: <MudaSenha /> }
     ]
   }
 ]);
