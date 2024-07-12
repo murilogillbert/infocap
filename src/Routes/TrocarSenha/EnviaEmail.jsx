@@ -1,12 +1,9 @@
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
-import { UserContext } from '../../UserContext';
 
 export default function EnviaEmail() {
     const [userEmail, setUserEmail] = useState('');
     const [feedbackMessage, setFeedbackMessage] = useState('');
-    const { setUserId } = useContext(UserContext);
-    const { userId } = useContext(UserContext);
 
     const verifyUser = async () => {
         try {
@@ -15,9 +12,8 @@ export default function EnviaEmail() {
             if (response.status === 200) {
                 const usersData = response.data;
                 const user = usersData.find(user => user.email === userEmail);
+
                 if (user) {
-                    await setUserId(user.id); // Define o userId no contexto
-                    console.log(userId + ' : ' + user.id)
                     sendEmail(user);
                 } else {
                     setFeedbackMessage('Email não cadastrado ou inválido.');
@@ -36,6 +32,7 @@ export default function EnviaEmail() {
             const response = await axios.get(`https://infocap-back.onrender.com/user/resetPassword/${user.id}`);
 
             if (response.status === 200) {
+                localStorage.setItem('userId', user.id);
                 setFeedbackMessage('Email de redefinição de senha enviado com sucesso.');
             } else if (response.status === 404) {
                 setFeedbackMessage('Usuário não encontrado.');

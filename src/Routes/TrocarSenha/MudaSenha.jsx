@@ -1,15 +1,14 @@
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
-import { UserContext } from '../../UserContext';
 
 export default function MudaSenha() {
     const { token } = useParams(); // Obtém o token da URL
     const [senha, setSenha] = useState('');
     const [confirmSenha, setConfirmSenha] = useState('');
     const [resetStatus, setResetStatus] = useState('');
-    const { userId } = useContext(UserContext);
-    console.log("Meu user ID é : " + userId)
+    const userId = localStorage.getItem("userId");
+    
     const mudarSenha = async (e) => {
         e.preventDefault();
 
@@ -19,8 +18,9 @@ export default function MudaSenha() {
         }
 
         try {
-            //Pequenas verificações
+            // Pequenas verificações
             console.log('Entrou\n A senha é do tipo: ' + typeof(senha))
+            console.log('O id é do tipo' + typeof(userId))
             console.log({
                 'userId': userId,
                 'newPassword': senha
@@ -32,6 +32,7 @@ export default function MudaSenha() {
 
             if (response.status === 200) {
                 setResetStatus('Senha redefinida com sucesso');
+                localStorage.removeItem('userId');
             } else if (response.status === 400) {
                 setResetStatus('Token inválido ou expirado');
             } else if (response.status === 404) {
