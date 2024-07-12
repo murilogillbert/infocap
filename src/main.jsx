@@ -16,60 +16,25 @@ import Admin from './Routes/Admin/Admin';
 import { AuthProvider } from './AuthContext';
 import EnviaEmail from './Routes/TrocarSenha/EnviaEmail';
 import MudaSenha from './Routes/TrocarSenha/MudaSenha';
+import { UserProvider } from './UserContext';
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
     children: [
-      {
-        path: "/",
-        element: <Home />
-      },
-      {
-        path: "/login",
-        element: <Login />
-      },
-      {
-        path: "/cadastro",
-        element: <Cadastro />
-      },
-      {
-        path: "/meusCursos",
-        element: <MeusCursos />
-      },
-      {
-        path: "/cursos",
-        element: <Cursos />
-      },
-      {
-        path: "/cursos/:id",
-        element: <Curso />
-      },
-      {
-        path: "/cursos/:id/video/:videoId",
-        element: <Video />
-      },
-      {
-        path: "/configuracao",
-        element: <Configuracao />
-      },
-      {
-        path: "/gerenciador",
-        element: <Gerenciador />
-      },
-      {
-        path: "/admin",
-        element: <Admin />
-      },
-      {
-        path: "/trocarSenha",
-        element: <EnviaEmail />
-      },
-      {
-        path: "/user/reset-updatePassword/:token",
-        element: <MudaSenha />
-      }
+      { path: "/", element: <Home /> },
+      { path: "/login", element: <Login /> },
+      { path: "/cadastro", element: <Cadastro /> },
+      { path: "/meusCursos", element: <MeusCursos /> },
+      { path: "/cursos", element: <Cursos /> },
+      { path: "/cursos/:id", element: <Curso /> },
+      { path: "/cursos/:id/video/:videoId", element: <Video /> },
+      { path: "/configuracao", element: <Configuracao /> },
+      { path: "/gerenciador", element: <Gerenciador /> },
+      { path: "/admin", element: <Admin /> },
+      { path: "/trocarSenha", element: <EnviaEmail /> },
+      { path: "/user/reset-updatePassword/:token", element: <MudaSenha /> }
     ]
   }
 ]);
@@ -77,7 +42,9 @@ const router = createBrowserRouter([
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <AuthProvider>
-      <RouterProvider router={router} />
+      <UserProvider>
+        <RouterProvider router={router} />
+      </UserProvider>
     </AuthProvider>
   </React.StrictMode>
 );

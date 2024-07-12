@@ -1,12 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
+import { UserContext } from '../../UserContext';
 
 export default function MudaSenha() {
     const { token } = useParams(); // Obtém o token da URL
     const [senha, setSenha] = useState('');
     const [confirmSenha, setConfirmSenha] = useState('');
     const [resetStatus, setResetStatus] = useState('');
+    const { userId } = useContext(UserContext);
 
     const mudarSenha = async (e) => {
         e.preventDefault();
@@ -18,6 +20,7 @@ export default function MudaSenha() {
 
         try {
             const response = await axios.post(`https://infocap-back.onrender.com/user/updatePassword/${token}`, {
+                userId: userId,
                 newPassword: senha
             });
 
