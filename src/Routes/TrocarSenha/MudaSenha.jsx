@@ -9,7 +9,7 @@ export default function MudaSenha() {
     const [confirmSenha, setConfirmSenha] = useState('');
     const [resetStatus, setResetStatus] = useState('');
     const { userId } = useContext(UserContext);
-
+    console.log("Meu user ID é : " + userId)
     const mudarSenha = async (e) => {
         e.preventDefault();
 

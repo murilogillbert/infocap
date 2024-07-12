@@ -6,6 +6,7 @@ export default function EnviaEmail() {
     const [userEmail, setUserEmail] = useState('');
     const [feedbackMessage, setFeedbackMessage] = useState('');
     const { setUserId } = useContext(UserContext);
+    const { userId } = useContext(UserContext);
 
     const verifyUser = async () => {
         try {
@@ -16,7 +17,8 @@ export default function EnviaEmail() {
                 const user = usersData.find(user => user.email === userEmail);
 
                 if (user) {
-                    setUserId(user.id); // Define o userId no contexto
+                    await setUserId(user.id); // Define o userId no contexto
+                    console.log(userId)
                     sendEmail(user);
                 } else {
                     setFeedbackMessage('Email não cadastrado ou inválido.');
