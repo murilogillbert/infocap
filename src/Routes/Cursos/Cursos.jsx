@@ -1,14 +1,16 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import cursoData from '../../jsons/cursos.json';
+import axios from 'axios';
 import './Cursos.css';
 
 const fetchCursos = async () => {
-  // Supondo que a URL real para fetch seja fornecida, mas no exemplo usaremos os dados locais.
-  // const response = await fetch('URL_TO_FETCH_COURSES');
-  // const data = await response.json();
-  // return data;
-  return cursoData; // Usando dados locais do arquivo JSON
+  try {
+    const response = await axios.get('https://infocap-back.onrender.com/curso/findAll');
+    return response.data;
+  } catch (error) {
+    console.error('Erro ao buscar cursos:', error);
+    return [];
+  }
 };
 
 const Cursos = () => {
@@ -25,9 +27,9 @@ const Cursos = () => {
   return (
     <div className="cursos-container">
       {cursos.map((curso) => (
-        <div className="curso-item" key={curso.id} style={{backgroundImage:`url("${curso.img}")`}}>
-          <h3>{curso.nome}</h3>
-          <p>{curso.materia}</p>
+        <div className="curso-item" key={curso.id} style={{backgroundImage:`url("${curso.img_diretorio}")`}}>
+          <h3>{curso.name}</h3>
+          <p>{curso.descricao}</p>
           <button>
             <Link to={`/cursos/${curso.id}`}>Acessar</Link>
           </button>

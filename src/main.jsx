@@ -13,8 +13,9 @@ import Video from './Routes/Video/Video';
 import Configuracao from './Routes/Configuracao/Configuracao';
 import Gerenciador from './Routes/Gerenciador/Gerenciador';
 import Admin from './Routes/Admin/Admin';
-import ResetPassword from './Routes/ResetPassword/ResetPassword';
-import { AuthProvider } from './AuthContext';  // Importar o AuthProvider
+import { AuthProvider } from './AuthContext';
+import EnviaEmail from './Routes/TrocarSenha/EnviaEmail';
+import MudaSenha from './Routes/TrocarSenha/MudaSenha';
 
 const router = createBrowserRouter([
   {
@@ -58,7 +59,10 @@ const router = createBrowserRouter([
         element:<Admin/>
       },{
         path:"/trocarSenha",
-        element:<ResetPassword/>
+        element:<EnviaEmail/>
+      },{
+        path:"/token/verify/:token",
+        element:<MudaSenha/>
       }
     ]
   }
