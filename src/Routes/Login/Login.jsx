@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from './Login.module.css';
 import { Link } from 'react-router-dom';
@@ -11,6 +11,11 @@ const Login = () => {
   const [error, setError] = useState('');
   const { login: authenticate } = useAuth();  // Usar a função de login do contexto
   const navigate = useNavigate();  // Hook para navegação
+
+  const saveLogin = () => {
+    localStorage.setItem('login',login)
+    localStorage.setItem('password',password)
+  }
 
   const checkUser = async (e) => {
     e.preventDefault();
@@ -26,6 +31,7 @@ const Login = () => {
       if (response.status === 200) {
         const { token } = response.data;
         console.log('Autenticação bem-sucedida, token:', token);
+        saveLogin(login,password,);
         authenticate(token);  // Chamar a função de login do contexto
         navigate('/');  // Redirecionar para a página inicial
       } else {

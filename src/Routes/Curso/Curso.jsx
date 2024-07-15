@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 import './Curso.css';
 
 const Curso = () => {
+
   const { id } = useParams();
   const curso = cursoData.find(curso => curso.id === parseInt(id));
   const videos = videoData.filter(video => video.cursoId === parseInt(id));
@@ -49,26 +50,28 @@ const Curso = () => {
   }
 
   return (
-    <div className="curso-container">
-      <h2>{curso.nome}</h2>
-      <p>{curso.descricao}</p>
-      {isLoggedIn ? (
-        <button type="button" onClick={handleEnroll} disabled={isEnrolled}>
-          {isEnrolled ? 'Matriculado' : 'Inscreva-se'}
-        </button>
-      ) : (
-        <Link to="/login">Faça login para se inscrever</Link>
-      )}
-      <h3>Vídeos</h3>
-      <div className="videos-container">
-        {videos.map((video) => (
-          <div className="video-item" key={video.id}>
-            <h4>{video.titulo}</h4>
-            <Link to={`/cursos/${curso.id}/video/${video.id}`}>Acessar</Link>
-          </div>
-        ))}
+
+      <div className="curso-container">
+        <h2>{curso.nome}</h2>
+        <p>{curso.descricao}</p>
+        {isLoggedIn ? (
+          <button type="button" onClick={handleEnroll} disabled={isEnrolled}>
+            {isEnrolled ? 'Matriculado' : 'Inscreva-se'}
+          </button>
+        ) : (
+          <Link to="/login">Faça login para se inscrever</Link>
+        )}
+        <h3>Vídeos</h3>
+        <div className="videos-container">
+          {videos.map((video) => (
+            <div className="video-item" key={video.id}>
+              <h4>{video.titulo}</h4>
+              <Link to={`/cursos/${curso.id}/video/${video.id}`}>Acessar</Link>
+            </div>
+          ))}
+        </div>
       </div>
-    </div>
+
   );
 };
 

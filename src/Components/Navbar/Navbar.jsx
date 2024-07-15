@@ -1,7 +1,8 @@
-import React, { useState,useEffect } from 'react';
+import { useState,useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../../AuthContext'; // Importe o contexto de autenticação
 import styles from './Navbar.module.css';
+
 
 const Navbar = () => {
   const { isAuthenticated, logout } = useAuth(); // Use a informação de autenticação e a função de logout
