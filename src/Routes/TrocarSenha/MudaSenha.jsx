@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 
@@ -25,7 +25,7 @@ export default function MudaSenha() {
                 'userId': userId,
                 'newPassword': senha
             })
-            const response = await axios.post(`https://infocap-back.onrender.com/user/updatePassword/${token}`, {
+            const response = await axios.post(`http://localhost:8081/user/updatePassword/${token}`, {
                 userId: userId,
                 newPassword: senha
             });

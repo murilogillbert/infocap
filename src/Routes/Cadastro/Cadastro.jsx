@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import axios from 'axios';
 import styles from './Cadastro.module.css';
 
@@ -9,6 +9,7 @@ const Cadastro = () => {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [cpf, setCpf] = useState('');
+  const [role,setRole] = useState('ADMIN');
 
   const addUser = async (e) => {
     e.preventDefault();
@@ -30,11 +31,11 @@ const Cadastro = () => {
       name: nome,
       selo: 'ouro', // Valor fixo, ajuste após testes
       email,
-      role: 'ADMIN' // Valor fixo, ajuste após testes
+      role:role.toUpperCase() // Valor fixo, ajuste após testes
     };
 
     try {
-      const response = await axios.post('https://infocap-back.onrender.com/user/create', newUser);
+      const response = await axios.post('http://localhost:8081/user/create', newUser);
       if (response.status === 201) {
         alert('Usuário cadastrado com sucesso!');
         // Resetar o formulário
@@ -102,6 +103,15 @@ const Cadastro = () => {
             type="text"
             value={cpf}
             onChange={(e) => setCpf(e.target.value)}
+            required
+          />
+        </div>
+        <div>
+          <label>Role</label>
+          <input
+            type="text"
+            value={role}
+            onChange={(e) => setRole(e.target.value)}
             required
           />
         </div>

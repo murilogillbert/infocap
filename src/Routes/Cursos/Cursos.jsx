@@ -5,7 +5,7 @@ import './Cursos.css';
 
 const verifyMonitor = async () => {
   try {
-    const response = await axios.get('https://infocap-back.onrender.com/user/findAll');
+    const response = await axios.get('http://localhost:8081/user/findAll');
 
     if (response.status === 200) {
         const usersData = response.data;

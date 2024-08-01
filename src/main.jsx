@@ -16,6 +16,7 @@ import Admin from './Routes/Admin/Admin';
 import { AuthProvider } from './AuthContext';
 import EnviaEmail from './Routes/TrocarSenha/EnviaEmail';
 import MudaSenha from './Routes/TrocarSenha/MudaSenha';
+import Instrutor from './Routes/Instrutor/Instrutor';
 
 const router = createBrowserRouter([
   {
@@ -33,7 +34,8 @@ const router = createBrowserRouter([
       { path: "/gerenciador", element: <Gerenciador /> },
       { path: "/admin", element: <Admin /> },
       { path: "/trocarSenha", element: <EnviaEmail /> },
-      { path: "/user/reset-updatePassword/:token", element: <MudaSenha /> }
+      { path: "/user/reset-updatePassword/:token", element: <MudaSenha /> },
+      {path: "/seja-um-instrutor", element: <Instrutor/>}
     ]
   }
 ]);

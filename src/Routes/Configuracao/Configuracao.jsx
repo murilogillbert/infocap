@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-vars */
 import React, { useState } from 'react';
 import './Configuracao.css'
+import { Link } from 'react-router-dom';
 
 const Configuracao = () => {
     const [codigoAutenticacao, setCodigoAutenticacao] = useState('');
@@ -103,6 +104,9 @@ const Configuracao = () => {
             <div id="botoes">
                 <button type="button" id="aplicar-button"onClick={handleAplicar}>Aplicar</button>
                 <button type="button" id="cancelar-button">Cancelar</button>
+            </div>
+            <div>
+                <span>Deseja virar um instrutor?<Link to='/seja-um-instrutor'>Clique Aqui!</Link></span>
             </div>
         </section>
     );

@@ -1,25 +1,39 @@
+/* eslint-disable no-undef */
 import { useState, useEffect } from 'react';
 import './MeusCursos.css';
-import cursoData from '../../jsons/cursos.json'; // Importando os dados dos cursos
 import axios from 'axios';
-import { Link } from 'react-router-dom';
 
 const MeusCursos = () => {
   const [cursos, setCursos] = useState([]);
   const [ultimoCursoVisto, setUltimoCursoVisto] = useState(null);
   const [isMonitor, setIsMonitor] = useState(false);
   const [cursosCriados, setCursosCriados] = useState([]);
+  const [categorias, setCategorias] = useState([]);
+  const [modalOpen, setModalOpen] = useState(false);
+  const [novoCurso, setNovoCurso] = useState({
+    idInstrutor: '',
+    name: '',
+    imgDiretorio: '',
+    descricao: '',
+    prazoCertificado: '',
+    data: ''
+  });
 
   useEffect(() => {
     const verifyMonitor = async () => {
       try {
-        const response = await axios.get('https://infocap-back.onrender.com/user/findAll');
+        const response = await axios.get('http://localhost:8081/user/findAll');
         if (response.status === 200) {
           const usersData = response.data;
           const user = usersData.find(user => user.login === localStorage.getItem('login'));
-          if (user && user.role === 'MONITOR') {
+          if (user && user.role === 'INSTRUTOR') {
             setIsMonitor(true);
-            setCursosCriados(cursoData.filter(curso => curso.monitorId === user.id));
+            setNovoCurso(prevState => ({ ...prevState, idInstrutor: user.id }));
+            // Aqui está sendo buscado cursos que o monitor criou
+            const cursosResponse = await axios.get('http://localhost:8081/curso/findAll');
+            if (cursosResponse.status === 200) {
+              setCursosCriados(cursosResponse.data.filter(curso => curso.instrutor.id === user.id));
+            }
           }
         } else {
           console.log('Erro ao buscar usuários.');
@@ -29,7 +43,21 @@ const MeusCursos = () => {
       }
     };
 
+    const fetchCategorias = async () => {
+      try {
+        const response = await axios.get('http://localhost:8081/categoria/findAll');
+        if (response.status === 200) {
+          setCategorias(response.data);
+        } else {
+          console.log('Erro ao buscar categorias.');
+        }
+      } catch (error) {
+        console.error('Erro ao buscar categorias:', error);
+      }
+    };
+
     verifyMonitor();
+    fetchCategorias();
 
     // Buscar dados do usuário a partir do localStorage
     const userData = JSON.parse(localStorage.getItem('user'));
@@ -45,6 +73,37 @@ const MeusCursos = () => {
       }
     }
   }, []);
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setNovoCurso(prevState => ({ ...prevState, [name]: value }));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    console.log(typeof(novoCurso.name))
+    console.log(typeof(novoCurso.descricao))
+    console.log(typeof(novoCurso.data))
+    console.log(novoCurso.data)
+
+    console.log(typeof(novoCurso.imgDiretorio))
+    console.log(typeof(novoCurso.idInstrutor))
+    novoCurso.prazoCertificado = parseInt(novoCurso.prazoCertificado)
+    console.log(typeof( novoCurso.prazoCertificado))
+    try {
+      const response = await axios.post('http://localhost:8081/curso/create', novoCurso);
+      if (response.status === 201) {
+        alert('Curso criado com sucesso!');
+        setModalOpen(false);
+        // Atualize a lista de cursos criados
+        setCursosCriados(prevState => [...prevState, response.data]);
+      } else {
+        console.log('Erro ao criar curso.');
+      }
+    } catch (error) {
+      console.error('Erro ao criar curso:', error);
+    }
+  };
 
   return (
     <section id='meus-cursos' className="meus-cursos">
@@ -76,9 +135,7 @@ const MeusCursos = () => {
       {isMonitor && (
         <section className="cursos-criados">
           <h2>Cursos Criados</h2>
-          <button>
-            <Link to="/adicionar-curso">Adicionar Novo Curso</Link>
-          </button>
+          <button onClick={() => setModalOpen(true)}>Adicionar Novo Curso</button>
           {cursosCriados.length === 0 ? (
             <p>Você ainda não criou nenhum curso.</p>
           ) : (
@@ -93,6 +150,38 @@ const MeusCursos = () => {
             </div>
           )}
         </section>
+      )}
+
+      {modalOpen && (
+        <div className="modal">
+          <div className="modal-content">
+            <span className="close" onClick={() => setModalOpen(false)}>&times;</span>
+            <h2>Criar Novo Curso</h2>
+            <form onSubmit={handleSubmit}>
+              <label>
+                Nome do Curso:
+                <input type="text" name="name" value={novoCurso.name} onChange={handleInputChange} required />
+              </label>
+              <label>
+                Imagem (Diretório):
+                <input type="text" name="imgDiretorio" value={novoCurso.imgDiretorio} onChange={handleInputChange} required />
+              </label>
+              <label>
+                Descrição:
+                <textarea name="descricao" value={novoCurso.descricao} onChange={handleInputChange} required></textarea>
+              </label>
+              <label>
+                Prazo para Certificado (dias):
+                <input type="number" name="prazoCertificado" value={novoCurso.prazoCertificado} onChange={handleInputChange} required />
+              </label>
+              <label>
+                Data:
+                <input type="date" name="data" value={novoCurso.data} onChange={handleInputChange} required />
+              </label>
+              <button type="submit">Criar Curso</button>
+            </form>
+          </div>
+        </div>
       )}
     </section>
   );

@@ -5,10 +5,6 @@ const Gerenciador = () => {
     // Função para exibir o formulário de adicionar curso
   };
 
-  const reenviarEmail = () => {
-    // Função para reenviar o email
-  };
-
   const limparInputs = () => {
     // Função para limpar os inputs
   };
@@ -35,16 +31,13 @@ const Gerenciador = () => {
 
       {/* Div que recebe null caso o botão não seja clicado (default), ou o código html */}
       {/* Este é o código que será exibido */}
-
+      {/* Falta adicionar as aulas no curso */}
       <div id="add-curso">
         <label htmlFor="nome">Nome</label>
         <input type="text" name="nome" id="nome" />
         <label htmlFor="curso-seletor">Curso</label>
         <select name="curso-seletor" id="curso-seletor"></select>
-        <label htmlFor="autenticacao">Código de Autenticação</label>
-        <input type="text" name="autenticacao" id="autenticacao" />
         <div id="buttons-final">
-          <button onClick={reenviarEmail}>enviar email/Reenviar email</button>
           <div id="buttons-cancelar-adicionar">
             <button onClick={limparInputs}>Cancelar</button>
             <button onClick={salvarEmCursosDoInstrutor}>Adicionar</button>

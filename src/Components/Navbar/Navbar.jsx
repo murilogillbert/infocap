@@ -18,7 +18,7 @@ const Navbar = () => {
   };
 
   const handleLogout = () => {
-    logout(); // Chame a função de logout do contexto
+    logout();
     setDropdownOpen(false);
   };
 
@@ -58,7 +58,7 @@ const Navbar = () => {
             )}
           </ul>
           <div className={styles.auth}>
-            {isAuthenticated ? (
+            {isAuthenticated ? ( (
               <div className={styles.profileContainer}>
                 <button className={styles.profileIcon} onClick={toggleDropdown}>Meu Perfil</button>
                 {dropdownOpen && !menuOpen && (
@@ -70,7 +70,7 @@ const Navbar = () => {
                   </div>
                 )}
               </div>
-            ) : (
+            )) : (
               <>
                 <Link to="/login" className={styles.loginButton}>Login</Link>
                 <Link to="/cadastro" className={styles.signupButton}>Signup</Link>

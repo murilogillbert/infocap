@@ -26,7 +26,7 @@ const Login = () => {
         "password": password
       };
 
-      const response = await axios.post('https://infocap-back.onrender.com/auth/login', requestBody);
+      const response = await axios.post('http://localhost:8081/auth/login', requestBody);
 
       if (response.status === 200) {
         const { token } = response.data;
