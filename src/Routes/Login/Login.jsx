@@ -15,6 +15,7 @@ const Login = () => {
   const saveLogin = () => {
     localStorage.setItem('login',login)
     localStorage.setItem('password',password)
+    localStorage.setItem('autenticado',{'status':true,'data':new Date()})
   }
 
   const checkUser = async (e) => {

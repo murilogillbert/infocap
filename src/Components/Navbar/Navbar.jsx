@@ -1,4 +1,4 @@
-import { useState,useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../../AuthContext'; // Importe o contexto de autenticação
 import styles from './Navbar.module.css';
@@ -22,9 +22,10 @@ const Navbar = () => {
     setDropdownOpen(false);
   };
 
+
   //Verifica a cada 5 segundos se a largura da tela está abaixo ou acima de 768px
   //Mudando dinamicamente o conteúdo do menu  
-  useEffect(() => {
+  useEffect(() => {   
     const interval = setInterval(() => {
       if (menuOpen && window.innerWidth > 768) {
         setMenuOpen(false);
@@ -58,7 +59,7 @@ const Navbar = () => {
             )}
           </ul>
           <div className={styles.auth}>
-            {isAuthenticated ? ( (
+            {isAuthenticated ? ((
               <div className={styles.profileContainer}>
                 <button className={styles.profileIcon} onClick={toggleDropdown}>Meu Perfil</button>
                 {dropdownOpen && !menuOpen && (

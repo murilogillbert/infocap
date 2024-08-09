@@ -7,11 +7,11 @@ import Footer from '../../Components/Footer/Footer';
 import { Outlet } from 'react-router-dom';
 
 const App = () => {
-  const isLoggedIn = false; // Substitua com a lógica de verificação de login
+
 
   return (
     <div className={styles.app}>
-      <Navbar isLoggedIn={isLoggedIn} />
+      <Navbar/>
       <main>
       <Outlet/>
       </main>
